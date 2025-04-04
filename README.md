@@ -1,1 +1,2 @@
-# Terrain_Recognition
+This is to design a software that detects with precision the terrain type such as Sand, Forest, Grassland, Rocky, Water and Concrete from the multispectral images from satellite imagery. The software will be trained using deep learning neural network architecture such as Convolutional Neural Networking to generate the classification map on the different terrain types. It is enhanced with the ability to detect terrain texture such as Rocky, Slippery, Sandy and Marshy from the panchromatic images with respect to the respective multispectral image class.
+link of write-up: https://docs.google.com/document/d/1aOWWUZJwplfZDnHyNpFD6SdIzggAxNYh/edit?usp=sharing&ouid=113143441406709537640&rtpof=true&sd=true
