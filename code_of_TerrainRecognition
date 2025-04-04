@@ -1,0 +1,43 @@
+from ultralytics import YOLO
+import numpy as np
+import cv2
+import cvzone
+import math
+
+
+img=cv2.imread(r"c1.jpg")
+model=YOLO('fin_model.pt')
+cv2.imshow("Img before detection",img)
+cv2.waitKey(40)
+classNames=['Glacier', 'Grassland', 'Mountain', 'Plain']
+myColor=(0,0,255)
+img_count=0
+results=model(img, stream=True)
+print("SHAPE OF IMAGE",img.shape)
+
+
+print(results)
+cv2.rectangle(img,(200,200),(400,400),myColor,3)
+cv2.putText(img, 'Drawing Rectangle', (50,50), cv2.FONT_HERSHEY_SIMPLEX, 10, myColor, 2)
+cv2.imshow("Img afetr rectangle",img)
+cv2.waitKey(40)
+for r in results:
+        boxes=r.boxes
+        for box in boxes:
+                x1,y1,x2,y2 = box.xyxy[0]
+                x1,y1,x2,y2 = int(x1), int(y1), int(x2), int(y2)
+                w,h = x2-x1,  y2-y1
+                #cvzone.cornerRect(img,(x1,x2),(255,0,255),3)
+                #Confidence
+                conf=math.ceil((box.conf[0]*100))/100
+                #Class Name
+                cls=int(box.cls[0])
+                currentClass= classNames[cls]
+                print(currentClass)
+                cv2.rectangle(img,(x1,y1),(x2,y2),myColor,3)
+                cv2.putText(img, currentClass, (50,50), cv2.FONT_HERSHEY_SIMPLEX, 10, myColor, 2)
+                #cv2.putText(img,f'{classNames[cls]}{conf}',(max(0,x1), max(35,y1)), scale=1, thickness=1,colorB=myColor,colorT=(255,255,255),colorR=myColor,offset=5)                          
+        cv2.imshow('Images', img)
+        cv2.waitKey(40)
+
+
